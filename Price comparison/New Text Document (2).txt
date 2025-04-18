@@ -1,0 +1,19 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+public class Scraper {
+    public static double fetchPrice(String url, String cssSelector) {
+        try {
+            Document doc = Jsoup.connect(url).get();
+            Element priceElement = doc.selectFirst(cssSelector);
+            if (priceElement != null) {
+                String priceText = priceElement.text().replaceAll("[^0-9.]", "");
+                return Double.parseDouble(priceText);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return -1;
+    }
+}

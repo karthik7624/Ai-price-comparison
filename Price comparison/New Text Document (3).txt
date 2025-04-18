@@ -1,0 +1,14 @@
+import java.util.*;
+
+public class PriceComparator {
+    public static void main(String[] args) {
+        Map<String, Double> prices = new HashMap<>();
+
+        prices.put("Amazon", Scraper.fetchPrice("https://www.amazon.com/dp/B09G9BL5CP", ".a-price-whole"));
+        prices.put("Flipkart", Scraper.fetchPrice("https://www.flipkart.com/item", "._30jeq3"));
+
+        prices.entrySet().stream()
+            .sorted(Map.Entry.comparingByValue())
+            .forEach(entry -> System.out.println(entry.getKey() + ": ₹" + entry.getValue()));
+    }
+}
